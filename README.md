@@ -33,6 +33,8 @@
 ## 👨‍💻 Developed By
 
 <div align="center">
+  <img src="./jk-dev-studio-card.jpg" alt="JK Dev Studio Business Card" width="600" />
+  <br/><br/>
   <h2><strong>JK Dev Studio</strong></h2>
   <p><em>Crafting High-Performance Digital Solutions & Web Applications</em></p>
 </div>

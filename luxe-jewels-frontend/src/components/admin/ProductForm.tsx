@@ -67,9 +67,9 @@ export default function ProductForm({ initialData = null, onSubmit }: { initialD
       });
       alert('Subcategory created successfully!');
       // Append to the subcategories list
-      setSubcategories(prev => [...prev, res.data]);
+      setSubcategories((prev: any[]) => [...prev, res.data]);
       // Select the newly created subcategory ID
-      setFormData(prev => ({ ...prev, subCategory: res.data._id }));
+      setFormData((prev: any) => ({ ...prev, subCategory: res.data._id }));
       setIsAddingNewSubCategory(false);
       setNewSubCategoryName('');
     } catch (err: any) {

@@ -1,0 +1,481 @@
+LUXE JEWELS
+Premium Jewelry E-Commerce Platform
+Product Requirements Document
+UPDATED for Next.js + Express.js + MongoDB
+FINAL v3.0
+Ready for Development
+Document Version
+3.0 — With Next.js + Express.js + MongoDB
+Frontend
+Next.js 14 (React, TypeScript, Tailwind CSS)
+Backend
+Express.js (Node.js, RESTful API)
+Database
+MongoDB + Mongoose ODM
+Image Storage
+Cloudinary (CDN + Transformations)
+Payment
+Razorpay (INR, UPI, Cards, NetBanking)
+⚠️ TECHNOLOGY STACK CHANGES (v2.0 → v3.0)
+Changes Made
+Layer
+v2.0 (Old)
+v3.0 (New) ✅
+Change
+Frontend
+Next.js 14
+Next.js 14
+✓ Same
+Backend
+Next.js API Routes
+Express.js
+🔄 Changed
+Database
+PostgreSQL + Prisma
+MongoDB + Mongoose
+🔄 Changed
+Images
+Cloudinary
+Cloudinary
+✓ Same
+
+Architecture Overview
+Frontend (Client-Side):
+	•	Next.js 14 App Router
+	•	React Components (TypeScript)
+	•	Tailwind CSS + shadcn/ui
+	•	Axios or Fetch API to call Express Backend
+
+Backend (Server-Side):
+	•	Express.js REST API
+	•	Node.js Runtime
+	•	Mongoose for MongoDB ODM
+	•	JWT Authentication
+	•	CORS enabled for Next.js frontend
+
+Database:
+	•	MongoDB (NoSQL database)
+	•	Mongoose schemas for data validation
+	•	Collections: products, categories, orders, users, etc.
+
+Image Storage:
+	•	Cloudinary - for image uploads, CDN, transformations
+	•	URLs stored in MongoDB
+
+NEW ARCHITECTURE DIAGRAM
+┌─────────────────────────────────────────────────────────┐
+│  FRONTEND (Next.js 14)                                   │
+│  - App Router Pages (/shop, /admin, etc.)              │
+│  - React Components (TypeScript)                       │
+│  - Tailwind CSS + shadcn/ui                            │
+│  - Axios/Fetch calls → Express Backend                 │
+└─────────────────────────────────────────────────────────┘
+                            ↓↑
+                   REST API (JSON)
+                            ↓↑
+┌─────────────────────────────────────────────────────────┐
+│  BACKEND (Express.js)                                    │
+│  - REST Routes (/api/products, /api/orders, etc.)      │
+│  - Middleware (Auth, CORS, Logging)                   │
+│  - Razorpay Integration                                 │
+│  - Cloudinary Upload Handler                           │
+│  - JWT Token Generation & Verification                 │
+└─────────────────────────────────────────────────────────┘
+                            ↓↑
+                       Mongoose ODM
+                            ↓↑
+┌─────────────────────────────────────────────────────────┐
+│  DATABASE (MongoDB)                                      │
+│  - Collections: products, categories, orders, users    │
+│  - Stores image URLs from Cloudinary                   │
+└─────────────────────────────────────────────────────────┘
+                            ↓↑
+              Third-party: Cloudinary, Razorpay
+UPDATED TECHNOLOGY STACK
+Component
+Technology / Package
+Frontend
+Next.js 14, React 18, TypeScript, Tailwind CSS, shadcn/ui
+Backend
+Express.js, Node.js, Mongoose, JWT (jsonwebtoken), Cors
+Database
+MongoDB (Atlas or local), Mongoose 7.x
+Image Storage
+Cloudinary SDK (cloudinary npm package)
+Payment
+Razorpay (razorpay npm package)
+Email
+Nodemailer or Resend
+Frontend HTTP
+Axios or Fetch API
+Validation
+Joi or Yup (Backend), React Hook Form (Frontend)
+Hosting (Frontend)
+Vercel, Netlify, or Railway
+Hosting (Backend)
+Railway, Render, AWS, or DigitalOcean
+PROJECT FOLDER STRUCTURE (Next.js + Express.js)
+Frontend (Next.js)
+luxe-jewels-frontend/
+├── app/
+│   ├── (shop)/
+│   │   ├── page.tsx — Home
+│   │   ├── shop/page.tsx
+│   │   ├── category/[slug]/page.tsx
+│   │   ├── shape/[slug]/page.tsx
+│   │   ├── product/[slug]/page.tsx
+│   │   ├── cart/page.tsx
+│   │   ├── checkout/page.tsx
+│   │   ├── order-confirmation/[id]/page.tsx
+│   │   ├── diamonds/page.tsx
+│   │   ├── assurance/page.tsx
+│   │   ├── about/page.tsx
+│   │   ├── contact/page.tsx
+│   ├── admin/
+│   │   ├── login/page.tsx
+│   │   ├── dashboard/page.tsx
+│   │   ├── products/page.tsx
+│   │   ├── orders/page.tsx
+│   │   ├── categories/page.tsx
+│   │   ├── homepage/page.tsx
+│   │   ├── analytics/page.tsx
+├── components/
+│   ├── shop/ — ProductCard, MegaMenu, CartDrawer
+│   ├── admin/ — Dashboard, ProductForm, OrderTable
+│   ├── ui/ — shadcn/ui components
+├── lib/
+│   ├── api.ts — Axios instance for Backend calls
+│   ├── cloudinary.ts — Cloudinary SDK
+│   ├── razorpay.ts — Razorpay SDK
+│   ├── auth.ts — JWT token management
+├── styles/ — Global CSS
+├── public/ — Static assets
+├── package.json
+├── tsconfig.json
+├── next.config.js
+├── tailwind.config.js
+
+Backend (Express.js)
+luxe-jewels-backend/
+├── src/
+│   ├── routes/
+│   │   ├── products.js — GET, POST /api/products
+│   │   ├── categories.js — GET, POST /api/categories
+│   │   ├── shapes.js — GET /api/shapes
+│   │   ├── orders.js — POST, GET /api/orders
+│   │   ├── payment.js — Razorpay routes
+│   │   ├── admin.js — Protected admin routes
+│   │   ├── upload.js — Cloudinary upload
+│   ├── models/
+│   │   ├── Product.js — Mongoose schema
+│   │   ├── Category.js
+│   │   ├── Order.js
+│   │   ├── AdminUser.js
+│   ├── middleware/
+│   │   ├── auth.js — JWT verification
+│   │   ├── cors.js — CORS config
+│   │   ├── errorHandler.js
+│   ├── controllers/
+│   │   ├── productController.js
+│   │   ├── orderController.js
+│   │   ├── paymentController.js
+│   ├── config/
+│   │   ├── db.js — MongoDB connection
+│   │   ├── cloudinary.js — Cloudinary config
+│   ├── app.js — Express app setup
+│   ├── server.js — Server entry point
+├── .env — Environment variables
+├── package.json
+├── .gitignore
+API ROUTES (Express.js)
+Public Routes
+Method
+Endpoint
+Description
+GET
+/api/products
+List products with filter/sort
+GET
+/api/products/:id
+Get single product by ID
+GET
+/api/categories
+List all categories
+GET
+/api/shapes
+List diamond shapes
+POST
+/api/orders
+Create new order
+GET
+/api/orders/:id
+Get order confirmation
+POST
+/api/payment/create-order
+Create Razorpay order
+POST
+/api/payment/verify
+Verify payment signature
+POST
+/api/search
+Full-text search
+
+Admin Routes (Protected with JWT)
+Method
+Endpoint
+Description
+POST
+/api/admin/login
+Admin login (returns JWT)
+POST
+/api/admin/products
+Create product
+PUT
+/api/admin/products/:id
+Update product
+DELETE
+/api/admin/products/:id
+Delete product
+POST
+/api/admin/upload
+Upload image to Cloudinary
+GET
+/api/admin/orders
+List all orders
+PUT
+/api/admin/orders/:id
+Update order status
+GET
+/api/admin/analytics
+Get dashboard analytics
+PUT
+/api/admin/homepage
+Update CMS content
+DATABASE COLLECTIONS (MongoDB)
+Product Collection
+{
+  _id: ObjectId,
+  title: String,
+  slug: String,
+  description: String,
+  price: Number,
+  discountPrice: Number,
+  stock: Number,
+  categoryId: ObjectId (FK),
+  subCategoryId: ObjectId (FK),
+  shapeId: ObjectId (FK),
+  metalType: String,
+  isFeatured: Boolean,
+  isNewArrival: Boolean,
+  isActive: Boolean,
+  certificationType: String,
+  priceFrom: Boolean,
+  availableMetals: [String],
+  weight: Number,
+  dimensions: Object,
+  metaTitle: String,
+  metaDescription: String,
+  images: [
+    {
+      url: String,
+      publicId: String,
+      isMain: Boolean,
+      sortOrder: Number
+    }
+  ],
+  createdAt: Date,
+  updatedAt: Date
+}
+
+Order Collection
+{
+  _id: ObjectId,
+  orderNumber: String,
+  status: String, // "pending", "processing", "shipped", "delivered"
+  customerName: String,
+  customerEmail: String,
+  customerPhone: String,
+  shippingAddress: {
+    address: String,
+    city: String,
+    state: String,
+    pin: String,
+    country: String
+  },
+  items: [
+    {
+      productId: ObjectId,
+      title: String,
+      price: Number,
+      quantity: Number,
+      imageUrl: String
+    }
+  ],
+  totalAmount: Number,
+  taxAmount: Number,
+  shippingAmount: Number,
+  razorpayOrderId: String,
+  razorpayPaymentId: String,
+  razorpaySignature: String,
+  createdAt: Date,
+  updatedAt: Date
+}
+
+Category Collection
+{
+  _id: ObjectId,
+  name: String,
+  slug: String,
+  description: String,
+  imageUrl: String,
+  sortOrder: Number,
+  isActive: Boolean,
+  subcategories: [
+    {
+      _id: ObjectId,
+      name: String,
+      slug: String,
+      sortOrder: Number
+    }
+  ],
+  createdAt: Date,
+  updatedAt: Date
+}
+
+AdminUser Collection
+{
+  _id: ObjectId,
+  email: String,
+  passwordHash: String, // bcrypt hash
+  name: String,
+  createdAt: Date
+}
+AUTHENTICATION FLOW
+Admin Login
+	•	Admin enters email & password on /admin/login
+	•	Frontend sends POST /api/admin/login to Backend
+	•	Backend verifies credentials against MongoDB
+	•	Backend generates JWT token (expires in 8 hours)
+	•	Frontend stores token in localStorage
+	•	All subsequent requests include Authorization header with token
+	•	Backend middleware verifies token on protected routes
+
+Customer Authentication
+	•	Public customers do NOT need to login
+	•	Cart stored in browser localStorage
+	•	At checkout, customer provides email (not login)
+	•	Order is created without customer account
+ENVIRONMENT VARIABLES
+Frontend (.env.local)
+NEXT_PUBLIC_API_URL=http://localhost:5000
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloud_name
+NEXT_PUBLIC_RAZORPAY_KEY_ID=your_razorpay_key
+
+Backend (.env)
+MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/luxe-jewels
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD_HASH=bcrypt_hash_here
+JWT_SECRET=your_secret_key
+JWT_EXPIRES_IN=8h
+
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+
+RAZORPAY_KEY_ID=your_key_id
+RAZORPAY_KEY_SECRET=your_key_secret
+
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your_email@gmail.com
+SMTP_PASS=your_app_password
+
+NODE_ENV=production
+PORT=5000
+CORS_ORIGIN=https://your-frontend.com
+DEPLOYMENT GUIDE
+Frontend Deployment (Vercel)
+	•	Push code to GitHub
+	•	Connect repository to Vercel
+	•	Set environment variables (NEXT_PUBLIC_API_URL, etc.)
+	•	Deploy automatically on push
+
+Backend Deployment (Railway or Render)
+	•	Push code to GitHub
+	•	Connect to Railway/Render
+	•	Add environment variables
+	•	Deploy with npm start
+
+Database (MongoDB Atlas)
+	•	Create MongoDB Atlas account
+	•	Create cluster
+	•	Generate connection string
+	•	Add to Backend MONGODB_URI
+QUICK START (LOCAL DEVELOPMENT)
+1. Clone Repository
+git clone <repo>
+cd luxe-jewels
+
+2. Setup Frontend
+cd luxe-jewels-frontend
+npm install
+# Create .env.local
+NEXT_PUBLIC_API_URL=http://localhost:5000
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=xxx
+npm run dev
+# Runs on http://localhost:3000
+
+3. Setup Backend
+cd luxe-jewels-backend
+npm install
+# Create .env file with all variables
+npm start
+# Runs on http://localhost:5000
+
+4. Setup MongoDB
+	•	Local: mongod (if installed locally)
+	•	Or MongoDB Atlas: add connection string to .env
+
+5. Test API
+GET http://localhost:5000/api/products
+Should return array of products
+DEVELOPMENT TIMELINE
+Phase
+Work
+Priority
+Days
+Phase 1
+Backend setup, MongoDB, Auth middleware, Basic routes
+Critical
+5
+Phase 2
+Frontend setup, Pages, Components, API integration
+Critical
+7
+Phase 3
+Product CRUD, Cloudinary upload, Categories
+Critical
+7
+Phase 4
+Cart, Checkout, Razorpay integration
+Critical
+5
+Phase 5
+Order management, Email, Confirmation
+Critical
+3
+Phase 6
+Admin dashboard, Analytics, CMS
+High
+5
+Phase 7
+Testing, Optimization, Deployment
+Critical
+5
+
+Total: ~40-45 days (6-7 weeks)
+END OF DOCUMENT
+Luxe Jewels PRD v3.0
+Next.js + Express.js + MongoDB
+Ready for Development! 🚀
+© 2025 Luxe Jewels. Confidential & Proprietary.
